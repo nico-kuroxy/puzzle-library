@@ -12,5 +12,5 @@ The second parts aims to determine the similarity between those two lists.
 
 ## Solution
 
-The distance between the left and right lists is 2057374. This has been obtained with O(n log n) time complexity and 0(1) space complexity.
+The distance between the left and right lists is 2057374. This has been obtained with O(n log n) time complexity and 0(1) space complexity.  
 The similarity between them is 23177084. This has been obtained with O(n) time complexity and O(n) space complexity.

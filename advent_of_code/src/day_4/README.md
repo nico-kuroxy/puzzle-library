@@ -12,5 +12,5 @@ The second part consisted in finding a pattern of words on diagonals crossing ea
 
 ## Solution
 
-The word "XMAS" was found 2543 times in the input grid. This has been obtained with O( c\*r) time complexity and 0(c\*r) space complexity, where c, r are respectively the number of columns and rows. The size of the word has no impact on the time complexity, since we hash it on the fly.
+The word "XMAS" was found 2543 times in the input grid. This has been obtained with O( c\*r) time complexity and 0(c\*r) space complexity, where c, r are respectively the number of columns and rows. The size of the word has no impact on the time complexity, since we hash it on the fly.  
 The "MAS" crosses were found 1930 times in the input grid. This has been obtained with O( c\*r) time complexity and 0(c\*r) space complexity.

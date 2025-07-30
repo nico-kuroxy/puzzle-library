@@ -13,5 +13,5 @@ The second part aims at identifying special "do()" and "don't()" operations in t
 ## Solution
 
 The total sum of each mul() operation is 161289189.
-When the do() and don't() instructions are considered, the result is 83595109.
+When the do() and don't() instructions are considered, the result is 83595109.  
 These results were obtained with O(n) time complexity and O(n) space complexity.
