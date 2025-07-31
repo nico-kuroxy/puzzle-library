@@ -1,6 +1,6 @@
 
 cmake_minimum_required(VERSION 3.14)
-project(day_2 LANGUAGES CXX)
+project(advent_library LANGUAGES CXX)
 
 #########################
 ## Compilation options ##
@@ -23,29 +23,24 @@ endif()
 ###########
 
 # Let the compiler search for headers in the include folder.
-include_directories(include ${CMAKE_SOURCE_DIR}/install/include)
-# Define the executable target.
-add_executable(red_reports src/main.cpp src/red_reports.cpp)
-# Point to the installed library path
-link_directories(${CMAKE_SOURCE_DIR}/install/lib/advent_library)
-# Link the library against it.
-target_link_libraries(red_reports advent_library)
+include_directories(include)
+# Define the library target.
+add_library(advent_library src/base_advent_day.cpp)
 
 #############
 ## Install ##
 #############
 
-# Install the cpp executables.
+# Install the cpp library.
 install(
-  TARGETS red_reports
-  DESTINATION bin/${PROJECT_NAME}
+  TARGETS advent_library
+  DESTINATION lib/${PROJECT_NAME}
 )
 
-# Install the data files.
+# Install the header.
 install(
-  DIRECTORY data/
-  DESTINATION share/${PROJECT_NAME}/data
-)
+  DIRECTORY include/library
+  DESTINATION include)
 
 #############
 ## Testing ##

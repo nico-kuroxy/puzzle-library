@@ -1,18 +1,17 @@
 /**********************************************************************************************************************/
 //   author: nicolas.erbetti.k@gmail.com
-//   brief: This file defines the header of the Mull it Over problem proposed in the day 3 of the advent of code.
+//   brief: This file defines the header of the general library used for the advent of code challenge.
 //   copyright: © 2025 Nicolas Erbetti.
 /**********************************************************************************************************************/
 
-#ifndef _DAY_3_MULL_OVER_HPP_
-#define _DAY_3_MULL_OVER_HPP_
+#ifndef _LIBRARY_BASE_ADVENT_DAY_HPP_
+#define _LIBRARY_BASE_ADVENT_DAY_HPP_
 
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 ///> DEPENDENCIES
 //> C/C++ libraries
 #include <string>
 //> Custom-made libraries
-#include <library/base_advent_day.hpp>
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -23,34 +22,27 @@
 
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 ///> CLASS DECLARATION
-class MullOver : public BaseAdventDay {
-/* A class to process the problem of day 3. */
+class BaseAdventDay {
+/* A base class for each day of the calendar. */
 
  public:
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
     ///> CONSTRUCTORS
     /* Constructor of the class. Declared as explicit to prevent ambiguous instanciation. */
-    explicit MullOver(std::string _filename);
+    explicit BaseAdventDay(std::string _filename);
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
     ///> DESTRUCTORS
     /* Destructor of the class. */
-    ~MullOver();
+    ~BaseAdventDay();
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
     ///> FUNCTIONS
-    /* Run the code to process the input list. */
-    int run();
-    /* Load data from a text file and fill the vectors with the left and right ids.
-       Temporal complexity: O(n).
-       Space complexity: O(n). */
-    int loadDataFromFile(const std::string& _fn, std::string& _memory);
-    /* Multiply the memory values between identified "mul(x, y)".
-       Temporal complexity: O(n).
-       Space complexity: O(1). */
-    int multiplyMemory(const std::string& _memory, int& _result, int& _result_instructions, bool& _mul_enabled);
+    /* Run the code to process the input list.
+       Declared as purely virtual to force the parent class to define it. */
+    virtual int run() = 0;
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -59,20 +51,15 @@ class MullOver : public BaseAdventDay {
     //> SETTERS
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
- private:
+ protected:
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
     ///> GENERAL ATTRIBUTES
     //> DYNAMIC / They can change during runtime.
-    // The report data, which is a map of integers (id of the report) to vectors of integers (levels of the report).
-    std::string memory_;
-    // The result of the multiplication.
-    int result_;
-    // The result of the multiplication with the instructions.
-    int result_instructions_;
-    // Whether or not the multiplication is enabled.
-    bool mul_enabled_;
+    // The name of the file containing the data to process.
+    std::string filename_;
+    //> FIXED / They cannot change during runtime. Declared as const.
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 };
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-#endif  // _DAY_3_MULL_OVER_HPP_
+#endif  // _LIBRARY_BASE_ADVENT_DAY_HPP_

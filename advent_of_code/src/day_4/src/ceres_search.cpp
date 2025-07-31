@@ -21,9 +21,9 @@
 
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 //> CONSTRUCTORS
-CeresSearch::CeresSearch(std::string _filename) {
+CeresSearch::CeresSearch(std::string _filename) :
+    BaseAdventDay(_filename) {
     //> INITIALIZING EVERY ATTRIBUTE.
-    this->filename_ = _filename;
     this->grid_ = {};
     this->nb_found_ = 0;
     this->nb_xmas_found_ = 0;
@@ -44,6 +44,10 @@ CeresSearch::~CeresSearch() {
 
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 ///> FUNCTIONS
+int CeresSearch::run() {
+    // Return.
+    return 0;
+}
 int CeresSearch::run(std::string _word, std::string _pattern) {
     // Load data from file.
     if (this->loadDataFromFile(this->filename_, this->grid_)) {

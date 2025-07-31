@@ -18,6 +18,7 @@ set(CMAKE_RUNTIME_OUTPUT_DIRECTORY ${CMAKE_BINARY_DIR}/bin)
 
 # Add subdirectories for each day's code.
 # This assumes each day has its own CMakeLists.txt file.
+add_subdirectory(src/library)
 add_subdirectory(src/day_1)
 add_subdirectory(src/day_2)
 add_subdirectory(src/day_3)

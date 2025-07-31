@@ -23,9 +23,13 @@ endif()
 ###########
 
 # Let the compiler search for headers in the include folder.
-include_directories(include)
+include_directories(include ${CMAKE_SOURCE_DIR}/install/include)
 # Define the executable target.
 add_executable(mull_over src/main.cpp src/mull_over.cpp)
+# Point to the installed library path
+link_directories(${CMAKE_SOURCE_DIR}/install/lib/advent_library)
+# Link the library against it.
+target_link_libraries(mull_over advent_library)
 
 #############
 ## Install ##

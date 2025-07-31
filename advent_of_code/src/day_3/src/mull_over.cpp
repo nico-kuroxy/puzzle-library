@@ -20,9 +20,9 @@
 
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 //> CONSTRUCTORS
-MullOver::MullOver(std::string _filename) {
+MullOver::MullOver(std::string _filename) :
+    BaseAdventDay(_filename) {
     //> INITIALIZING EVERY ATTRIBUTE.
-    this->filename_ = _filename;
     this->memory_ = "";
     this->result_ = 0;
     this->result_instructions_ = 0;

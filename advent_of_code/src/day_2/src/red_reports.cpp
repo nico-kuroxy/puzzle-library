@@ -22,9 +22,9 @@
 
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 //> CONSTRUCTORS
-RedReports::RedReports(std::string _filename) {
+RedReports::RedReports(std::string _filename) :
+    BaseAdventDay(_filename) {
     //> INITIALIZING EVERY ATTRIBUTE.
-    this->filename_ = _filename;
     this->reports_ = std::unordered_map<int, std::vector<int>>();
     this->safe_count_ = 0;
     this->damped_count_ = 0;

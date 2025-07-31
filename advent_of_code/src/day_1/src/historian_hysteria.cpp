@@ -23,9 +23,9 @@
 
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 //> CONSTRUCTORS
-HistorianHysteria::HistorianHysteria(std::string _filename) {
+HistorianHysteria::HistorianHysteria(std::string _filename) :
+    BaseAdventDay(_filename) {
     //> INITIALIZING EVERY ATTRIBUTE.
-    this->filename_ = _filename;
     this->data_l_ = std::vector<int>();
     this->data_r_ = std::vector<int>();
     this->distance_ = 0;
