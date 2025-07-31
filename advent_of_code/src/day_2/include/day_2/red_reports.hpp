@@ -46,7 +46,7 @@ class RedReports {
     ///> FUNCTIONS
     /* Run the code to process the input list. */
     int run();
-    /* Load data from a text file and fill the vectors with the left and right ids.
+    /* Load data from a text file and fill the map with the reports.
        Temporal complexity: O(n).
        Space complexity: O(n). */
     int loadDataFromFile(const std::string& _fn, std::unordered_map<int, std::vector<int>>& _reports);
@@ -54,18 +54,15 @@ class RedReports {
       Temporal complexity: O(n).
       Space complexity: O(1). */
     int isReportSafe(std::vector<int>& _levels);
-    /* Apply the damping logic to the given report. */
-    int dampReport
-       (std::vector<int>& _levels, size_t& _index, int& _trend, int& _last_trend,
-          int& _damping_treshold, int& _nb_damped, bool& _is_safe);
     /* Check if a report is safe, ie has a consistent trend of levels and whose consecutive level variation are within 1-3.
       We have a tolerance of 1 unsafe level, but this threshold is flexible.
       Temporal complexity: O(n).
       Space complexity: O(1). */
-    int isReportSafeWithDamping(std::vector<int>& _levels, int _damping_threshold);
+    int isReportSafeWithDamping(std::vector<int>& _levels);
     /* Count the number of safe reports by calling isReportSafe().
-      Temporal complexity: O(n).
-      Space complexity: O(1).  */
+      Temporal complexity: O(n*k).
+      Space complexity: O(k).
+      With k being the average length of the reports. */
     int countSafeReports(
       std::unordered_map<int, std::vector<int>>& _reports, int& _s_count, int& _d_count);
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////

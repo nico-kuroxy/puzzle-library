@@ -113,7 +113,6 @@ int RedReports::isReportSafe(std::vector<int>& _levels) {
         if (abs(abs(_levels[i] - _levels[i - 1]) - 2) > 1) {
             // We check if the successive levels are within safe range (between 1 and 3 or between -1 and -3).
             // We can center this condition by shifting the absolute difference of the levels by 2.
-            // std::cerr << "Warning: Report has unsafe variations." << std::endl;
             // Then update the flag.
             is_safe = false;
             // Then break the loop.
@@ -122,7 +121,6 @@ int RedReports::isReportSafe(std::vector<int>& _levels) {
             trend = std::copysign(1, _levels[i] - _levels[i - 1]);
         } else if (trend != std::copysign(1, _levels[i] - _levels[i - 1])) {
             // Otherwise, we check if the trend has changed and log.
-            // std::cerr << "Warning: Report has inconsistent trend." << std::endl;
             // Then update the flag.
             is_safe = false;
             // Then break the loop if the trend.
@@ -132,97 +130,22 @@ int RedReports::isReportSafe(std::vector<int>& _levels) {
     // Return the safety status of the report.
     return is_safe;
 }
-int RedReports::dampReport
-    (std::vector<int>& _levels, size_t& _index, int& _trend, int& _last_trend,
-        int& _damping_treshold, int& _nb_damped, bool& _is_safe) {
-    // Check if the index is valid.
-    if (_index <= 0 || _index >= _levels.size()) {
-        // If not, print an error message.
-        std::cerr << "Error: Invalid index " << _index << " for damping report." << std::endl;
-        // And return an error code.
-        return 1;
-    }
-    // Check the damping threshold.
-    if (_nb_damped < _damping_treshold) {
-        // If we have not damped yet, we can damp the report.
-        _nb_damped += 1;
-        // We check if the current index is the third one,
-        // ie if it is the first level after a trend has been established.
-        if (_index > 2) {
-            // We update the current level to the previous one.
-            // To keep the same number of levels while acting like the current level never existed.
-            _levels[_index] = _levels[_index - 1];
-            // We also revert the trend to the last one.
-            _trend = _last_trend;
-        } else {
-            // We reset the trend to 0, as it does not matter what was the first trend.
-            _trend = 0;
-        }
-        // And then we continue the loop.
-        return 0;
-    } else {
-        // If we have already damped, we consider the report unsafe.
-        _is_safe = false;
-        // Then break the loop.
-        return 1;
-    }
-    // Return.
-    return 0;
-}
-
-int RedReports::isReportSafeWithDamping(std::vector<int>& _levels, int _damping_threshold) {
+int RedReports::isReportSafeWithDamping(std::vector<int>& _levels) {
     // Initialize flag for the report.
-    bool is_safe = true;
-    int nb_damped = 0;
-    int trend = 0;  // 0 means no trend, 1 means increasing, -1 means decreasing.
-    int last_trend = 0;
-    int last_value;
-    // Iterate through the levels of the report.
-    for (size_t i = 1; i < _levels.size(); i++) {
-        // We check if the successive levels are within safe range (between 1 and 3 or between -1 and -3).
-        // We can center this condition by shifting the absolute difference of the levels by 2.
-        if (abs(abs(_levels[i] - _levels[i - 1]) - 2) > 1) {
-            // Log the warning.
-            // std::cerr << "Warning: Report has unsafe variations." << std::endl;
-            // Then update the flag.
-            if (this->dampReport(_levels, i, trend, last_trend, _damping_threshold, nb_damped, is_safe)) {
-                break;
-            } else {
-                continue;
-            }
-        } else if (!trend) {
-            // Initialize the trend by assigning it the sign of the first difference.
-            trend = std::copysign(1, _levels[i] - _levels[i - 1]);
-            // Check if the trend has changed.
-            if (!trend) {
-                if (this->dampReport(_levels, i, trend, last_trend, _damping_threshold, nb_damped, is_safe)) {
-                    break;
-                } else {
-                    continue;
-                }
-            }
-        } else if (trend != std::copysign(1, _levels[i] - _levels[i - 1])) {
-            // Otherwise, we check if the trend has changed and log.
-            // std::cerr << "Warning: Report has inconsistent trend." << std::endl;
-            // Then update the flag.
-            if (this->dampReport(_levels, i, trend, last_trend, _damping_threshold, nb_damped, is_safe)) {
-                break;
-            } else {
-                continue;
-            }
+    bool is_safe = false;
+    // Check if the report is safe with the damping.
+    for (int i = 0; i < _levels.size(); i++) {
+        // Create a temporary vector to hold the levels.
+        std::vector<int> temp_levels = _levels;
+        // We remove the current level.
+        temp_levels.erase(temp_levels.begin() + i);
+        // We check if the report is now safe.
+        if (this->isReportSafe(temp_levels)) {
+            // If it is, we update the flag.
+            is_safe = true;
+            // And we can exit the loop early.
+            break;
         }
-        // If the trend has changed, we update the last trend.
-        if (trend != last_trend) last_trend = trend;
-        // Update the last value.
-        last_value = _levels[i - 1];
-    }
-    if (!is_safe) {
-        // Print the report levels.
-        std::cerr << "Unsafe report levels: ";
-        for (const auto& level : _levels) {
-            std::cerr << level << " ";  // Print each level.
-        }
-        std::cerr << std::endl;  // New line after printing all levels.
     }
     // Return the safety status of the report.
     return is_safe;
@@ -236,7 +159,7 @@ int RedReports::countSafeReports(std::unordered_map<int, std::vector<int>>& _rep
         // Check if the report has at least one level.
         if (report.second.empty()) {
             // Log the error.
-            // std::cerr << "Error: Report with ID [" << report.first << "] has no levels." << std::endl;
+            std::cerr << "Error: Report with ID [" << report.first << "] has no levels." << std::endl;
             // Return the error code.
             return 1;
         }
@@ -246,15 +169,15 @@ int RedReports::countSafeReports(std::unordered_map<int, std::vector<int>>& _rep
             _s_count += 1;
         } else {
             // Log the unsafe report.
-            // std::cerr << "Unsafe report with ID [" << report.first << "] detected." << std::endl;
+            std::cerr << "Unsafe report with ID [" << report.first << "] detected." << std::endl;
         }
-        // Check if the report is safe with the damping factor of 1
-        if (this->isReportSafeWithDamping(report.second, 1)) {
+        // Check if the report is safe with the damping factor.
+        if (this->isReportSafeWithDamping(report.second)) {
             // We increment the safe count.
             _d_count += 1;
         } else {
             // Log the unsafe report.
-            // std::cerr << "Unsafe damped report with ID [" << report.first << "] detected." << std::endl;
+            std::cerr << "Unsafe damped report with ID [" << report.first << "] detected." << std::endl;
         }
     }
     // Log the final safe count.
