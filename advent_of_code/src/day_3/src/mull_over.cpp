@@ -12,9 +12,6 @@
 #include <regex>
 #include <sstream>
 #include <string>
-#include <unordered_map>
-#include <utility>
-#include <vector>
 //> Custom-made libraries
 #include <day_3/mull_over.hpp>
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
