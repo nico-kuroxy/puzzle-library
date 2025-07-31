@@ -1,8 +1,9 @@
-/**********************************************************************************************************************/
-//   author: nicolas.erbetti.k@gmail.com
-//   brief: This file defines the header of the Historian Hysteria problem proposed in the day 1 of the advent of code.
-//   copyright: © 2025 Nicolas Erbetti.
-/**********************************************************************************************************************/
+/**
+ * @file historian_hysteria.hpp
+ * @author nicolas.erbetti.k@gmail.com
+ * @brief This file defines the header of the Historian Hysteria problem proposed in Day 1 of the Advent of Code.
+ * @copyright © 2025 Nicolas Erbetti
+ */
 
 #ifndef _DAY_1_HISTORIAN_HYSTERIA_HPP_
 #define _DAY_1_HISTORIAN_HYSTERIA_HPP_
@@ -27,36 +28,73 @@
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 ///> CLASS DECLARATION
 class HistorianHysteria : public BaseAdventDay {
-/* A class to process the problem of day1. */
+/**
+ * @class HistorianHysteria
+ * @brief Processes the Advent of Code Day 1 problem, handling input data and computing required metrics.
+ *
+ * Inherits from BaseAdventDay. This class loads data from a file, processes left and right ID lists,
+ * and computes distance and similarity metrics between them.
+ *
+ */
 
  public:
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
     ///> CONSTRUCTORS
-    /* Constructor of the class. Declared as explicit to prevent ambiguous instanciation. */
+    /**
+     * @brief Constructs a HistorianHysteria object with the specified filename.
+     *
+     * This explicit constructor initializes the HistorianHysteria instance using the provided
+     * filename, which is expected to reference the data source required by the class.
+     *
+     * @param _filename The name of the file to be used for initialization.
+     */
     explicit HistorianHysteria(std::string _filename);
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
     ///> DESTRUCTORS
-    /* Destructor of the class. */
+    /**
+     * @brief Destructor for the HistorianHysteria class.
+     *
+     * Cleans up any resources allocated by HistorianHysteria.
+     */
     ~HistorianHysteria();
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
     ///> FUNCTIONS
-    /* Run the code to process the input list. */
+    /**
+     * @brief Run the code to process the input list.
+     * @return 0 if success, non-zero error code otherwise.
+     */
     int run();
-    /* Load data from a text file and fill the vectors with the left and right ids.
-       Temporal complexity: O(n).
-       Space complexity: O(n). */
+    /**
+     * @brief Load data from a text file and fill the vectors with the left and right ids.
+     * @details Temporal complexity: O(n), Space complexity: O(n).
+     * @param _fn The filename to load.
+     * @param _data_l Output vector of left IDs.
+     * @param _data_r Output vector of right IDs.
+     * @return 0 if success, non-zero on error.
+     */
     int loadDataFromFile(const std::string& _fn, std::vector<int>& _data_l, std::vector<int>& _data_r);
-    /* Compute the distance between the left and right ids.
-       Temporal complexity: O(n log n ).
-       Space complexity: O(1). */
+    /**
+     * @brief Compute the distance between the left and right ids.
+     * @details Temporal complexity: O(n log n), Space complexity: O(1).
+     * @param _data_l Vector of left IDs.
+     * @param _data_r Vector of right IDs.
+     * @param _distance Output distance.
+     * @return 0 if success, non-zero on error.
+     */
     int computeDistance(std::vector<int>& _data_l, std::vector<int>& _data_r, int& _distance);
-    /* Compute the similarity between the left and right ids.
-       Temporal complexity: O(n).
-       Space complexity: O(n). */
+    /**
+     * @brief Compute the similarity between the left and right ids.
+     * @details Temporal complexity: O(n), Space complexity: O(n).
+     * @param _data_l Vector of left IDs.
+     * @param _data_r Vector of right IDs.
+     * @param _similarity Output similarity score.
+     * @param _similarity_map Output map of similarities.
+     * @return 0 if success, non-zero on error.
+     */
     int computeSimilarity(
       std::vector<int>& _data_l, std::vector<int>& _data_r,
          int& _similarity, std::unordered_map<int, std::pair<int, int>>& _similarity_map);
@@ -72,15 +110,25 @@ class HistorianHysteria : public BaseAdventDay {
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
     ///> GENERAL ATTRIBUTES
     //> DYNAMIC / They can change during runtime.
-    // The vector containing the left ids.
+    /**
+     * @brief The vector containing the left ids.
+     */
     std::vector<int> data_l_;
-    // The vector containing the right ids.
+    /**
+     * @brief The vector containing the right ids.
+     */
     std::vector<int> data_r_;
-    // The computed distance between the left and right ids.
+    /**
+     * @brief The computed distance between the left and right ids.
+     */
     int distance_;
-    // The computed similarity between the left and right ids.
+    /**
+     * @brief The computed similarity between the left and right ids.
+     */
     int similarity_;
-    // The map containing the number of each ids from the left list counted in the right list.
+    /**
+     * @brief The map containing the number of each id from the left list counted in the right list.
+     */
     std::unordered_map<int, std::pair<int, int>> similarity_map_;
     //> FIXED / They cannot change during runtime. Declared as const.
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////

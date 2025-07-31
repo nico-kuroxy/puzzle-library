@@ -1,8 +1,9 @@
-/**********************************************************************************************************************/
-//   author: nicolas.erbetti.k@gmail.com
-//   brief: This file defines the source of the Historian Hysterai problem proposed in the day 1 of the advent of code.
-//   copyright: © 2025 Nicolas Erbetti.
-/**********************************************************************************************************************/
+/**
+ * @file historian_hysteria.hpp
+ * @author nicolas.erbetti.k@gmail.com
+ * @brief This file defines the source of the Historian Hysteria problem proposed in Day 1 of the Advent of Code.
+ * @copyright © 2025 Nicolas Erbetti
+ */
 
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 //> DEPENDENCIES

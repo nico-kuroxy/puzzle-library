@@ -1,8 +1,9 @@
-/**********************************************************************************************************************/
-//   author: nicolas.erbetti.k@gmail.com
-//   brief: This file defines the header of the Mull it Over problem proposed in the day 3 of the advent of code.
-//   copyright: © 2025 Nicolas Erbetti.
-/**********************************************************************************************************************/
+/**
+ * @file mull_over.hpp
+ * @author nicolas.erbetti.k@gmail.com
+ * @brief This file defines the header of the Mull it Over problem proposed in Day 3 of the Advent of Code.
+ * @copyright © 2025 Nicolas Erbetti
+ */
 
 #ifndef _DAY_3_MULL_OVER_HPP_
 #define _DAY_3_MULL_OVER_HPP_
@@ -24,32 +25,58 @@
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 ///> CLASS DECLARATION
 class MullOver : public BaseAdventDay {
-/* A class to process the problem of day 3. */
+/**
+ * @class MullOver
+ * @brief A class to process the Advent of Code Day 3 problem.
+ *
+ * Inherits from BaseAdventDay. This class handles memory input, parses multiplication instructions,
+ * and computes results based on pattern-matching operations.
+ */
 
  public:
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
     ///> CONSTRUCTORS
-    /* Constructor of the class. Declared as explicit to prevent ambiguous instanciation. */
-    explicit MullOver(std::string _filename);
+    /**
+     * @brief Constructor of the class. Declared as explicit to prevent ambiguous instantiation.
+     * @param _filename Path to the input file containing memory data.
+     */
+     explicit MullOver(std::string _filename);
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
     ///> DESTRUCTORS
-    /* Destructor of the class. */
-    ~MullOver();
+    /**
+     * @brief Destructor of the class.
+     */
+     ~MullOver();
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
     ///> FUNCTIONS
-    /* Run the code to process the input list. */
+    /**
+     * @brief Run the code to process the input list.
+     * @return 0 on success, non-zero on failure.
+     */
     int run();
-    /* Load data from a text file and fill the vectors with the left and right ids.
-       Temporal complexity: O(n).
-       Space complexity: O(n). */
+    /**
+     * @brief Load data from a text file and fill the memory string.
+     * @details Temporal complexity: O(n), Space complexity: O(n).
+     * @param _fn Path to the input file.
+     * @param _memory Output string containing raw memory data.
+     * @return 0 on success, non-zero on error.
+     */
     int loadDataFromFile(const std::string& _fn, std::string& _memory);
-    /* Multiply the memory values between identified "mul(x, y)".
-       Temporal complexity: O(n).
-       Space complexity: O(1). */
+    /**
+     * @brief Multiply the memory values between identified `mul(x, y)` markers.
+     * @details
+     *   - Temporal complexity: O(n)
+     *   - Space complexity: O(1)
+     * @param _memory Input string representing memory.
+     * @param _result Output: product of matched memory values.
+     * @param _result_instructions Output: product of instruction-flagged values.
+     * @param _mul_enabled Output: whether multiplication mode is enabled.
+     * @return 0 on success, non-zero on error.
+     */
     int multiplyMemory(const std::string& _memory, int& _result, int& _result_instructions, bool& _mul_enabled);
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
@@ -63,13 +90,21 @@ class MullOver : public BaseAdventDay {
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
     ///> GENERAL ATTRIBUTES
     //> DYNAMIC / They can change during runtime.
-    // The report data, which is a map of integers (id of the report) to vectors of integers (levels of the report).
+    /**
+     * @brief Memory representation loaded from input.
+     */
     std::string memory_;
-    // The result of the multiplication.
+    /**
+     * @brief The result of the multiplication.
+     */
     int result_;
-    // The result of the multiplication with the instructions.
+    /**
+     * @brief The result of the multiplication with the instructions considered.
+     */
     int result_instructions_;
-    // Whether or not the multiplication is enabled.
+    /**
+     * @brief Whether or not the multiplication logic is currently enabled.
+     */
     bool mul_enabled_;
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 };

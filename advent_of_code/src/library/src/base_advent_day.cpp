@@ -1,8 +1,9 @@
-/**********************************************************************************************************************/
-//   author: nicolas.erbetti.k@gmail.com
-//   brief: This file defines the source of the general library used for the advent of code challenge.
-//   copyright: © 2025 Nicolas Erbetti.
-/**********************************************************************************************************************/
+/**
+ * @file base_advent_day.hpp
+ * @author nicolas.erbetti.k@gmail.com
+ * @brief This file defines the source of the general library used for the Advent of Code challenge.
+ * @copyright © 2025 Nicolas Erbetti
+ */
 
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 //> DEPENDENCIES

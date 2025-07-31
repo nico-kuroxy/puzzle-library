@@ -1,8 +1,9 @@
-/**********************************************************************************************************************/
-//   author: nicolas.erbetti.k@gmail.com
-//   brief: This file defines the header of the general library used for the advent of code challenge.
-//   copyright: © 2025 Nicolas Erbetti.
-/**********************************************************************************************************************/
+/**
+ * @file base_advent_day.hpp
+ * @author nicolas.erbetti.k@gmail.com
+ * @brief This file defines the header of the general library used for the Advent of Code challenge.
+ * @copyright © 2025 Nicolas Erbetti
+ */
 
 #ifndef _LIBRARY_BASE_ADVENT_DAY_HPP_
 #define _LIBRARY_BASE_ADVENT_DAY_HPP_
@@ -23,25 +24,38 @@
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 ///> CLASS DECLARATION
 class BaseAdventDay {
-/* A base class for each day of the calendar. */
+/**
+ * @class BaseAdventDay
+ * @brief A base class for each day of the Advent of Code calendar.
+ *
+ * Provides a virtual interface that all day-specific subclasses should implement.
+ */
 
  public:
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
     ///> CONSTRUCTORS
-    /* Constructor of the class. Declared as explicit to prevent ambiguous instanciation. */
+    /**
+     * @brief Constructor of the class. Declared as explicit to prevent ambiguous instantiation.
+     * @param _filename The name of the input file.
+     */
     explicit BaseAdventDay(std::string _filename);
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
     ///> DESTRUCTORS
-    /* Destructor of the class. */
+    /**
+     * @brief Destructor of the class.
+     */
     ~BaseAdventDay();
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
     ///> FUNCTIONS
-    /* Run the code to process the input list.
-       Declared as purely virtual to force the parent class to define it. */
+    /**
+     * @brief Run the code to process the input list.
+     * @details Declared as purely virtual to enforce implementation in derived classes.
+     * @return Status code (0 = success, non-zero = failure).
+     */
     virtual int run() = 0;
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
@@ -55,7 +69,9 @@ class BaseAdventDay {
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
     ///> GENERAL ATTRIBUTES
     //> DYNAMIC / They can change during runtime.
-    // The name of the file containing the data to process.
+    /**
+     * @brief The name of the file containing the data to process.
+     */
     std::string filename_;
     //> FIXED / They cannot change during runtime. Declared as const.
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////

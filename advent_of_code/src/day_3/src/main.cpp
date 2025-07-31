@@ -1,9 +1,9 @@
-/**********************************************************************************************************************/
-//   author: nicolas.erbetti.k@gmail.com
-//   brief: This file defines the executable of the Mull it Over problem
-//          proposed in the day 3 of the advent of code.
-//   copyright: © 2025 Nicolas Erbetti.
-/**********************************************************************************************************************/
+/**
+ * @file mull_over.hpp
+ * @author nicolas.erbetti.k@gmail.com
+ * @brief This file defines the executable of the Mull it Over problem proposed in Day 3 of the Advent of Code.
+ * @copyright © 2025 Nicolas Erbetti
+ */
 
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 //> DEPENDENCIES

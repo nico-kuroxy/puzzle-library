@@ -1,8 +1,9 @@
-/**********************************************************************************************************************/
-//   author: nicolas.erbetti.k@gmail.com
-//   brief: This file defines the source of the Red-Nosed Reports problem proposed in the day 2 of the advent of code.
-//   copyright: © 2025 Nicolas Erbetti.
-/**********************************************************************************************************************/
+/**
+ * @file red_reports.hpp
+ * @author nicolas.erbetti.k@gmail.com
+ * @brief This file defines the source of the Red-Nosed Reports problem proposed in Day 2 of the Advent of Code.
+ * @copyright © 2025 Nicolas Erbetti
+ */
 
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 //> DEPENDENCIES

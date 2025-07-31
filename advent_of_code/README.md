@@ -12,6 +12,8 @@ Your built objects should be in the **build** folder, while the executable are i
 
 It should be noted that for each executable of the advent of code, we need to load a data file within our code. These data file are installed in the **install/share** folder during building.
 
+Furthermore, each header file has been commented following Doxygen documentation style.
+
 ## How to use
 
 To execute the program of your choice, just use `./install/bin/day_X/your_executable install/share/day_X/data/some_data.txt`. Make sure to replace **day_X**, **executable** and **some_data** by the proper file/folder names.
