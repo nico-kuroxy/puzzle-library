@@ -6,9 +6,13 @@ The first part aims to determine the total distance between two lists of positiv
 
 The second parts aims to determine the similarity between those two lists.
 
-## How to install
-
 ## How to use
+
+As explained in the [Readme](../../README.md) of the project, just use `./install/bin/day_X/your_executable install/share/day_X/data/some_data.txt`. Make sure to replace **day_X**, **executable** and **some_data** by the proper file/folder names.
+
+Eg:
+
+- `./install/bin/day_1/historian_hysteria install/share/day_1/data/puzzle_input.txt`
 
 ## Solution
 

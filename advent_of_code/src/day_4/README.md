@@ -6,9 +6,15 @@ The first part aims to find all occurences of a given word ("XMAS") in a crosswo
 
 The second part consisted in finding a pattern of words on diagonals crossing each other through their centers.
 
-## How to install
-
 ## How to use
+
+As explained in the [Readme](../../README.md) of the project, just use `./install/bin/day_X/your_executable install/share/day_X/data/some_data.txt`. Make sure to replace **day_X**, **executable** and **some_data** by the proper file/folder names.  
+
+This is the only program which needs extra arguments on the command line. The first one is the word to look for in the crossword, the second is the word to look for with the cross pattern. The pattern word should be of size 3. It could further generalized to any word of odd size, or any word at all given a rule to handle even sized word.
+
+Eg:
+
+- `./install/bin/day_4/ceres_search install/share/day_4/data/puzzle_input. XMAS MAS`
 
 ## Solution
 

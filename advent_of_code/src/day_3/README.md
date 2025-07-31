@@ -6,9 +6,13 @@ The first part aims to sum a series of multiplication hidden in a corrupted memo
 
 The second part aims at identifying special "do()" and "don't()" operations in the memory. Any "mul(x, y)" found after a "don't()" will be ignored, until the next "do()".
 
-## How to install
-
 ## How to use
+
+As explained in the [Readme](../../README.md) of the project, just use `./install/bin/day_X/your_executable install/share/day_X/data/some_data.txt`. Make sure to replace **day_X**, **executable** and **some_data** by the proper file/folder names.
+
+Eg:
+
+- `./install/bin/day_3/mull_over install/share/day_3/data/puzzle_input.txt`
 
 ## Solution
 
