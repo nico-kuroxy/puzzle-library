@@ -23,9 +23,7 @@ endif()
 ###########
 
 # Let the compiler search for headers in the include folder.
-include_directories(include ${CMAKE_SOURCE_DIR}/install/include)
-# Point to the installed library path.
-link_directories(${CMAKE_SOURCE_DIR}/install/lib/advent_library)
+include_directories(include ${CMAKE_SOURCE_DIR}/src/library/include)
 # Define the executable target.
 add_executable(historian_hysteria src/main.cpp src/historian_hysteria.cpp)
 # Link the library against it.
