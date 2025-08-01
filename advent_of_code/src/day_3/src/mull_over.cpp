@@ -1,5 +1,5 @@
 /**
- * @file mull_over.hpp
+ * @file mull_over.cpp
  * @author nicolas.erbetti.k@gmail.com
  * @brief This file defines the source of the Mull it Over problem proposed in Day 3 of the Advent of Code.
  * @copyright © 2025 Nicolas Erbetti

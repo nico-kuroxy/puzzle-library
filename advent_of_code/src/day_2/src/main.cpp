@@ -1,5 +1,5 @@
 /**
- * @file red_reports.hpp
+ * @file main.cpp
  * @author nicolas.erbetti.k@gmail.com
  * @brief This file defines the executable of the Red-Nosed Reports problem proposed in Day 2 of the Advent of Code.
  * @copyright © 2025 Nicolas Erbetti

@@ -1,5 +1,5 @@
 /**
- * @file mull_over.hpp
+ * @file main.cpp
  * @author nicolas.erbetti.k@gmail.com
  * @brief This file defines the executable of the Mull it Over problem proposed in Day 3 of the Advent of Code.
  * @copyright © 2025 Nicolas Erbetti

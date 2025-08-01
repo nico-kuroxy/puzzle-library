@@ -1,9 +1,10 @@
 /**
- * @file historian_hysteria.hpp
+ * @file main.cpp
  * @author nicolas.erbetti.k@gmail.com
  * @brief This file defines the executable of the Historian Hysteria problem proposed in Day 1 of the Advent of Code.
  * @copyright © 2025 Nicolas Erbetti
  */
+
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 //> DEPENDENCIES
 //> C/C++ libraries

@@ -1,5 +1,5 @@
 /**
- * @file ceres_search.hpp
+ * @file main.cpp
  * @author nicolas.erbetti.k@gmail.com
  * @brief This file defines the executable of the Ceres Search problem proposed in Day 4 of the Advent of Code.
  * @copyright © 2025 Nicolas Erbetti
