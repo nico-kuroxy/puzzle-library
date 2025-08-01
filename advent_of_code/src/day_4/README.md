@@ -14,7 +14,7 @@ This is the only program which needs extra arguments on the command line. The fi
 
 Eg:
 
-- `./install/bin/day_4/ceres_search install/share/day_4/data/puzzle_input. XMAS MAS`
+- `./install/bin/day_4/ceres_search install/share/day_4/data/puzzle_input.txt XMAS MAS`
 
 ## Solution
 
