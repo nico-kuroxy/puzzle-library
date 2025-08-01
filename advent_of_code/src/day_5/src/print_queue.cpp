@@ -30,6 +30,7 @@ PrintQueue::PrintQueue(std::string _filename) :
     this->page_rules_ = {};
     this->updates_ = {};
     this->result_ = 0;
+    this->result_fixed_ = 0;
     //> LOGGING.
     std::cout << "PrintQueue initialized with file: " << this->filename_ << std::endl;
 }
@@ -56,7 +57,7 @@ int PrintQueue::run() {
         return 1;
     }
     // Check the validity of the updates.
-    if (this->checkUpdates(this->updates_, this->page_rules_, this->result_)) {
+    if (this->checkUpdates(this->updates_, this->page_rules_, this->result_, this->result_fixed_)) {
         // If there was an error checking the updates, log it.
         std::cerr << "Error checking the updates." << std::endl;
         // And return an error code.
@@ -188,36 +189,70 @@ int PrintQueue::loadDataFromFile(
     return 0;
 }
 bool PrintQueue::isUpdateValid(
-    const std::unordered_map<int, int>& _update, const std::vector<std::pair<int, int>>& _rules) {
-    // Iterate through the set of rules.
-    for (const auto& rule : _rules) {
-        // Check if both pages of the rule are in the update.
-        if ((_update.find(rule.first) != _update.end()) && (_update.find(rule.second) != _update.end())) {
-            // Check if the index of the first page is LOWER than the index of the second.
-            if (_update.at(rule.first) > _update.at(rule.second)) {
-                // Return immediately.
-                return false;
-            }
+    const std::unordered_map<int, int>& _update, const std::pair<int, int>& _rule) {
+    // Check if both pages of the rule are in the update.
+    if ((_update.find(_rule.first) != _update.end()) && (_update.find(_rule.second) != _update.end())) {
+        // Check if the index of the first page is LOWER than the index of the second.
+        if (_update.at(_rule.first) > _update.at(_rule.second)) {
+            // Return immediately.
+            return false;
         }
     }
     // Return.
     return true;
 }
+int PrintQueue::fixUpdate(std::unordered_map<int, int>& _update, const std::pair<int, int>& _rule, int& _middle_page) {
+    int temp;
+    // Check if the pages exists in the map.
+    if ((_update.find(_rule.first) != _update.end()) && (_update.find(_rule.second) != _update.end())) {
+        // Check if the middle page is in the rule, and update it accordingly.
+        if (_middle_page == _rule.first) {
+            _middle_page = _rule.second;
+        } else if (_middle_page == _rule.second) {
+            _middle_page = _rule.first;
+        }
+        // Switch the position of both pages.
+        temp = _update[_rule.first];
+        _update[_rule.first] = _update[_rule.second];
+        _update[_rule.second] = temp;
+    }
+    // Return.
+    return 0;
+}
 int PrintQueue::checkUpdates(
     std::vector<std::pair<std::unordered_map<int, int>, int>>& _updates,
-        std::vector<std::pair<int, int>> _rules, int& _result) {
+        std::vector<std::pair<int, int>> _rules, int& _result, int& _result_fixed) {
     // Initialize function variables.
     _result = 0;
+    _result_fixed = 0;
+    bool flag;
     // Iterate through each update.
-    for (const auto& update : _updates) {
-        // Check if the update is valid.
-        if (this->isUpdateValid(update.first, _rules)) {
-            // We add its middle page index to the result.
-            _result += update.second;
+    for (int i = 0; i < _updates.size(); i++) {
+        // Reset the flag.
+        flag = true;
+        // Iterate through each rules.
+        for (int j=0; j < _rules.size(); j++) {
+            // Check if the update is valid.
+            if (!this->isUpdateValid(_updates[i].first, _rules[j])) {
+                // We try to fix the update
+                this->fixUpdate(_updates[i].first, _rules[j], _updates[i].second);
+                // If not, we set the validation flag to false.
+                flag = false;
+                // And we reset the loop to make sure the change didn't break any other rule.
+                j = 0;
+            }
+        }
+        // If everything was fine, we add its middle page index to the result.
+        if (flag) {
+             _result += _updates[i].second;
+        } else {
+            std::cout << _updates[i].second << std::endl;
+            _result_fixed += _updates[i].second;
         }
     }
     // Log the result.
     std::cout << "The sum of middle pages of valid updates is : " << _result << std::endl;
+    std::cout << "The sum of middle pages of previously invalid updates is : " << _result_fixed << std::endl;
     // Return.
     return 0;
 }

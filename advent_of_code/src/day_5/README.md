@@ -4,7 +4,9 @@ The [problem](https://adventofcode.com/2024/day/5) for this day.
 
 The first part aims to find every valid update in a sequence of updates. Each update has a series of page, and they must follow a set of ordering rules. Then, we need to find the sum of the middle page of each valid update.
 
-The second part consisted in
+The second part consisted in trying to fix those invalid updates and then compute the sum of the middle page for each of them.
+
+We are making the assumption that each update has an odd number of pages, each page should be a positive and unique integer, and that the set of rules does not contradict itself.
 
 ## How to use
 
@@ -17,3 +19,4 @@ Eg:
 ## Solution
 
 The sum of all middle pages from valid updates is 5087. This has been achieved with O(r+p) space complexity, with r being the number of rules and p the total number of pages in all updates. The time complexity is O(p + r*u), where p is the number of pages, r is the number of rules and u is the number of updates.
+The sum of all middle pages from previously invalid update is 4971.

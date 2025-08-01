@@ -24,3 +24,4 @@ Eg:
 - `./install/bin/day_2/red_reports install/share/day_2/data/puzzle_input.txt`
 - `./install/bin/day_3/mull_over install/share/day_3/data/puzzle_input.txt`
 - `./install/bin/day_4/ceres_search install/share/day_4/data/puzzle_input.txt XMAS MAS`
+- `./install/bin/day_5/print_queue install/share/day_5/data/puzzle_input.txt`

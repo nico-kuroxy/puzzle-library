@@ -14,6 +14,7 @@
 #include <cstdint>
 #include <string>
 #include <unordered_map>
+#include <utility>
 #include <vector>
 //> Custom-made libraries
 #include <library/base_advent_day.hpp>
@@ -75,25 +76,36 @@ class PrintQueue : public BaseAdventDay {
          std::vector<std::pair<std::unordered_map<int, int>, int>>& _updates);
    /**
     * @brief Checks if the given update is valid according to the specified rules. 
-    *        The time complexity is O(r), and the space complexity is O(1).
-    *        With r the number of rules.
+    *        The time complexity is O(1), and the space complexity is O(1).
     * @param _update An unordered map representing the update to be validated. Keys and values are integers.
-    * @param _rules A vector of pairs of integers, each representing a validation rule.
+    * @param _rule A pair of integers, representing a validation rule.
     * @return bool Returns true if the update is valid, false otherwise.
     */
-    bool isUpdateValid(const std::unordered_map<int, int>& _update, const std::vector<std::pair<int, int>>& _rules);
+    bool isUpdateValid(const std::unordered_map<int, int>& _update, const std::pair<int, int>& _rule);
+   /**
+    * @brief Applies a rule to update a queue and adjusts the middle page accordingly.
+    *        The time complexity is O(1), and the space complexity is O(1).
+    * @param _update Reference to an unordered_map representing the current update state.
+    * @param _rule A pair of integers representing the rule to be applied.
+    * @param _middle_page Reference to an integer representing the current middle page, which may be modified.
+    * @return int Returns 0 on success, or a non-zero error code on failure.
+    */
+    int fixUpdate(std::unordered_map<int, int>& _update, const std::pair<int, int>& _rule, int& _middle_page);
    /**
     * @brief Checks and applies updates based on a set of rules.
-    *        The time complexity is O(r*u), and the space complexity is O(1).
-    *        With r the number of rules, u the number of updates.
+    *        The time complexity is O(r*u), or O(r!*u) in the worst case with the fixing of invalid updates, and the space complexity is O(1).
+    *        This is potentially very bad, but only occurs is the updates are always breaking all previous rules when fixing one.
+    *        With r the number of rules, u the number of updates. This could be improved with either a proper rule checking (to make sure that no rules are repeated multiple times, for instance),
+    *        or by graphing the rules together. If the rules are valid, then we will create subsets of pages order that we can use to make everything faster.
     * @param _updates A vector of unordered maps and int, where each map represents updates and are associated with their middle page.
     * @param _rules A vector of pairs, where each pair represents a rule with two integers.
     * @param _result An int with the sum of the middle page number from the correctly-ordered updates.
+    * @param _result_fixed An int with the sum of the middle page number from the previously invalid updates.
     * @return int Returns 0 on success, or a non-zero error code on failure.
     */
     int checkUpdates(
       std::vector<std::pair<std::unordered_map<int, int>, int>>& _updates,
-         std::vector<std::pair<int, int>> _rules, int& _result);
+         std::vector<std::pair<int, int>> _rules, int& _result, int& _result_fixed);
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -120,7 +132,11 @@ class PrintQueue : public BaseAdventDay {
     /**
      * @brief The sum of the middle page number from the correctly-ordered updates.
      */
-    int result_ = 0;
+    int result_;
+    /**
+     * @brief The sum of the middle page number from the uncorrectly-ordered updates after fixing them.
+     */
+    int result_fixed_;
     //> FIXED / They cannot change during runtime. Declared as const.
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 };
