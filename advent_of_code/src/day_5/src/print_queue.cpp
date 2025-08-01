@@ -13,6 +13,8 @@
 #include <iostream>
 #include <sstream>
 #include <string>
+#include <unordered_map>
+#include <utility>
 #include <vector>
 //> Custom-made libraries
 #include <day_5/print_queue.hpp>
@@ -26,7 +28,8 @@ PrintQueue::PrintQueue(std::string _filename) :
     BaseAdventDay(_filename) {
     //> INITIALIZING EVERY ATTRIBUTE.
     this->page_rules_ = {};
-    this->new_pages_ = {};
+    this->updates_ = {};
+    this->result_ = 0;
     //> LOGGING.
     std::cout << "PrintQueue initialized with file: " << this->filename_ << std::endl;
 }
@@ -46,24 +49,35 @@ PrintQueue::~PrintQueue() {
 ///> FUNCTIONS
 int PrintQueue::run() {
     // Load data from file.
-    if (this->loadDataFromFile(this->filename_, this->page_rules_, this->new_pages_)) {
+    if (this->loadDataFromFile(this->filename_, this->page_rules_, this->updates_)) {
         // If there was an error loading the data, log it.
         std::cerr << "Error loading data from file: " << this->filename_ << std::endl;
         // And return an error code.
         return 1;
     }
+    // Check the validity of the updates.
+    if (this->checkUpdates(this->updates_, this->page_rules_, this->result_)) {
+        // If there was an error checking the updates, log it.
+        std::cerr << "Error checking the updates." << std::endl;
+        // And return an error code.
+        return 2;
+    }
     // Return success.
     return 0;
 }
 int PrintQueue::loadDataFromFile(
-    const std::string& _fn, std::vector<std::pair<int, int>>& _page_rules, std::vector<int> _new_pages) {
+    const std::string& _fn, std::vector<std::pair<int, int>>& _page_rules,
+        std::vector<std::pair<std::unordered_map<int, int>, int>>& _updates) {
     // Initialize the function variables.
     std::string line, first_page_str, second_page_str, extra_page_str;
     int first_page, second_page, extra_page;
+    int page_index;
     bool are_rules_registered = false;
+    std::pair<std::unordered_map<int, int>, int> update;
+    std::vector<int> temp_update;
     // Reset the page variables.
     _page_rules.clear();
-    _new_pages.clear();
+    _updates.clear();
     // Try to open the file.
     std::ifstream file(_fn);
     // If the file could not be opened, return an error.
@@ -118,7 +132,12 @@ int PrintQueue::loadDataFromFile(
                 return 4;
             }
         } else {
-            // Otherwise, we add the pages.
+            // Create a new update.
+            temp_update.clear();
+            update.first.clear();
+            update.second = 0;
+            page_index = 0;
+            // Otherwise, we add the pages for a single update.
             while (std::getline(iss, extra_page_str, ',')) {
                 // Process the string before the next separator.
                 try {
@@ -138,8 +157,15 @@ int PrintQueue::loadDataFromFile(
                     return 6;
                 }
                 // Add the page.
-                _new_pages.push_back(extra_page);
+                temp_update.push_back(extra_page);
+                update.first.insert({extra_page, page_index});
+                // Increase the index.
+                page_index += 1;
             }
+            // We retrieve the value of the middle page.
+            update.second = temp_update[((temp_update.size() - 1) / 2)];
+            // And then we add the update to the list of updates.
+            _updates.push_back(update);
         }
     }
     // Display the loaded rules.
@@ -148,13 +174,50 @@ int PrintQueue::loadDataFromFile(
         std::cout << rule.first << " | " << rule.second << std::endl;
     }
     // Display the loaded pages.
-    std::cout << "Loaded pages from file: " << _fn << std::endl;
-    for (const int& page : _new_pages) {
-        std::cout << page << ", ";
+    std::cout << "Loaded updates from file: " << _fn << std::endl;
+    for (const auto& update : _updates) {
+        for (const auto& page : update.first) {
+            std::cout << page.first << "(" << page.second << "), ";
+        }
+        std::cout << "Middle page is: " << update.second << std::endl;
+        std::cout << std::endl;
     }
-    std::cout << std::endl;
     // Close the file.
     file.close();
+    // Return.
+    return 0;
+}
+bool PrintQueue::isUpdateValid(
+    const std::unordered_map<int, int>& _update, const std::vector<std::pair<int, int>>& _rules) {
+    // Iterate through the set of rules.
+    for (const auto& rule : _rules) {
+        // Check if both pages of the rule are in the update.
+        if ((_update.find(rule.first) != _update.end()) && (_update.find(rule.second) != _update.end())) {
+            // Check if the index of the first page is LOWER than the index of the second.
+            if (_update.at(rule.first) > _update.at(rule.second)) {
+                // Return immediately.
+                return false;
+            }
+        }
+    }
+    // Return.
+    return true;
+}
+int PrintQueue::checkUpdates(
+    std::vector<std::pair<std::unordered_map<int, int>, int>>& _updates,
+        std::vector<std::pair<int, int>> _rules, int& _result) {
+    // Initialize function variables.
+    _result = 0;
+    // Iterate through each update.
+    for (const auto& update : _updates) {
+        // Check if the update is valid.
+        if (this->isUpdateValid(update.first, _rules)) {
+            // We add its middle page index to the result.
+            _result += update.second;
+        }
+    }
+    // Log the result.
+    std::cout << "The sum of middle pages of valid updates is : " << _result << std::endl;
     // Return.
     return 0;
 }
