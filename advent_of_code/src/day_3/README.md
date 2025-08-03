@@ -8,14 +8,18 @@ The second part aims at identifying special "do()" and "don't()" operations in t
 
 ## How to use
 
-As explained in the [Readme](../../README.md) of the project, just use `./install/bin/day_X/your_executable install/share/day_X/data/some_data.txt`. Make sure to replace **day_X**, **executable** and **some_data** by the proper file/folder names.
+As explained in the [Readme](../../README.md#how-to-use) of the project, just use `./install/bin/day_X/your_executable install/share/day_X/data/some_data.txt`. Make sure to replace **day_X**, **executable** and **some_data** by the proper file/folder names.
 
 Eg:
 
 - `./install/bin/day_3/mull_over install/share/day_3/data/puzzle_input.txt`
 
+## How to test
+
+As explained in the [Readme](../../README.md/#how-to-test) of the project, just use `ctest --test-dir build` to run all the GTest test case defined for this project.
+
 ## Solution
 
-The total sum of each mul() operation is 161289189.
-When the do() and don't() instructions are considered, the result is 83595109.  
+The total sum of each mul() operation is **161289189**.  
+When the do() and don't() instructions are considered, the result is **83595109**.  
 These results were obtained with O(n) time complexity and O(n) space complexity.

@@ -10,13 +10,17 @@ We are making the assumption that each update has an odd number of pages, each p
 
 ## How to use
 
-As explained in the [Readme](../../README.md) of the project, just use `./install/bin/day_X/your_executable install/share/day_X/data/some_data.txt`. Make sure to replace **day_X**, **executable** and **some_data** by the proper file/folder names.  
+As explained in the [Readme](../../README.md#how-to-use) of the project, just use `./install/bin/day_X/your_executable install/share/day_X/data/some_data.txt`. Make sure to replace **day_X**, **executable** and **some_data** by the proper file/folder names.  
 
 Eg:
 
 - `./install/bin/day_5/print_queue install/share/day_5/data/puzzle_input.txt`
 
+## How to test
+
+As explained in the [Readme](../../README.md/#how-to-test) of the project, just use `ctest --test-dir build` to run all the GTest test case defined for this project.
+
 ## Solution
 
-The sum of all middle pages from valid updates is 5087. This has been achieved with O(r+p) space complexity, with r being the number of rules and p the total number of pages in all updates. The time complexity is O(p + r*u), where p is the number of pages, r is the number of rules and u is the number of updates.
-The sum of all middle pages from previously invalid update is 4971.
+The sum of all middle pages from valid updates is **5087**. This has been achieved with O(r+p) space complexity, with r being the number of rules and p the total number of pages in all updates. The time complexity is O(p + r*u), where p is the number of pages, r is the number of rules and u is the number of updates.  
+The sum of all middle pages from previously invalid update is **4971**.

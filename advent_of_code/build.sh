@@ -5,7 +5,7 @@ mkdir -p build
 cd build
 
 # Configure the project
-cmake .. -DCMAKE_BUILD_TYPE=Release
+cmake ..
 
 # Build everything
 cmake --build .

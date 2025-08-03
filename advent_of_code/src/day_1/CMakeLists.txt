@@ -49,6 +49,15 @@ install(
 ## Testing ##
 #############
 
+# Define the executable target.
+add_executable(tests tests/test_historian_hysteria.cpp src/historian_hysteria.cpp)
+# Link the GTest libary against it.
+target_link_libraries(tests gtest gtest_main advent_library)
+# Include the GTest libaries.
+include(GoogleTest)
+# Register the GTest test cases compiled in the executable.
+gtest_discover_tests(tests)
+
 ###################
 ## Documentation ##
 ###################
