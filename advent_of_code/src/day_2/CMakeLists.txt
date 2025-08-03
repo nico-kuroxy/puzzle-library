@@ -49,6 +49,15 @@ install(
 ## Testing ##
 #############
 
+# Define the executable target.
+add_executable(tests_red tests/test_red_reports.cpp src/red_reports.cpp)
+# Link the GTest libary against it.
+target_link_libraries(tests_red gtest gtest_main advent_library)
+# Include the GTest libaries.
+include(GoogleTest)
+# Register the GTest test cases compiled in the executable.
+gtest_discover_tests(tests_red)
+
 ###################
 ## Documentation ##
 ###################
