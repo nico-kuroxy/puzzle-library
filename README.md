@@ -12,3 +12,4 @@ As much as possible, the programmation is done in C++ (17) or Python (3.10) with
   - [Day 3](advent_of_code/src/day_3/README.md) : Mull It Over
   - [Day 4](advent_of_code/src/day_4/README.md) : Ceres Search
   - [Day 5](advent_of_code/src/day_5/README.md) : Print Queue
+  - [Day 6](advent_of_code/src/day_6/README.md) : Guard Gallivant
