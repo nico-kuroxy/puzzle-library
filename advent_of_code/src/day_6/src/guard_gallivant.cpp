@@ -72,7 +72,8 @@ int GuardGallivant::run() {
     // Log the final number of move of the guards.
     std::cout << "Total number of guards: " << this->guards_.size() << std::endl;
     for (const auto& guard : this->guards_) {
-        std::cout << "Guard made " << guard.previous_positions_.size() << " moves." << std::endl;
+        std::cout << "Guard made " << guard.previous_positions_.size() << " moves, with " << guard.nb_turn_ << " turns." << std::endl;
+        std::cout << "We can place " << guard.nb_obstructions_ << " obstructions to block him." << std::endl;
     }
     // Return success.
     return 0;
@@ -163,6 +164,12 @@ int GuardGallivant::moveGuards(std::vector<std::vector<char>>& _map, std::vector
                     next_col >= 0 && next_col < this->map_[next_row].size()) {
                     // If the next cell is a wall, rotate the guard.
                     if (this->map_[next_row][next_col] == '#') {
+                        // Increase the number of turns made by the guard.
+                        guard.nb_turn_ += 1;
+                        // Register the obstruction.
+                        guard.previous_obstacles_.push_back(std::make_pair(next_row, next_col));
+                        // Log the registry.
+                        std::cout << "Guard registered an obstruction at (" << next_row << ", " << next_col << ")." << std::endl;
                         // Rotate the guard's orientation.
                         if (guard.current_orientation_ == std::make_pair(0, -1)) {
                             guard.current_orientation_ = std::make_pair(-1, 0);  // Rotate right
@@ -172,6 +179,36 @@ int GuardGallivant::moveGuards(std::vector<std::vector<char>>& _map, std::vector
                             guard.current_orientation_ = std::make_pair(1, 0);  // Rotate left
                         } else if (guard.current_orientation_ == std::make_pair(-1, 0)) {
                             guard.current_orientation_ = std::make_pair(0, 1);  // Rotate up
+                        }
+                        // If the nb of turns is greater or equal to 3, we check if we can place an obstruction.
+                        if (guard.previous_obstacles_.size() >= 3) {
+                            std::pair<int, int> check_obstacle = guard.current_position_;
+                            std::pair<int, int> target_obstacle = guard.current_position_;
+                            if (guard.current_orientation_ == std::make_pair(0, -1)) {
+                                target_obstacle.second = guard.previous_obstacles_[guard.nb_turn_ - 3].second - 1;
+                            } else if (guard.current_orientation_ == std::make_pair(1, 0)) {
+                                target_obstacle.first = guard.previous_obstacles_[guard.nb_turn_ - 3].first + 1;
+                            } else if (guard.current_orientation_ == std::make_pair(0, 1)) {
+                                target_obstacle.second = guard.previous_obstacles_[guard.nb_turn_ - 3].second + 1;
+                            } else if (guard.current_orientation_ == std::make_pair(-1, 0)) {
+                                target_obstacle.first = guard.previous_obstacles_[guard.nb_turn_ - 3].first - 1;
+                            }
+                            bool can_place_obstruction = true;
+                            // We need to check each cell between the guard current position, the cell where we want to place the obstruction,
+                            // And the cell two turns before, to see if they all connect without any "natural" obstruction.
+                            // for (int i = check_obstacle.first; i < guard.previous_obstacles_[guard.nb_turn_ - 2].first; i++) {
+                            //     for (int j = check_obstacle.second; j < guard.previous_obstacles_[guard.nb_turn_ - 2].second; j++) {
+                            //         // If there are no obstacle on the way, we can put an obstruction.
+                            //         if (this->map_[i][j] == '#') can_place_obstruction = false;
+                            //     }
+                            // } // NEED TO BETTER IMPLEMENT THIS.               
+                            // If we can place an obstruction, we increase the number of obstructions.
+                            if (can_place_obstruction) {
+                                // Increase the number of obstructions.
+                                guard.nb_obstructions_ += 1;
+                                // Log the placement of the obstruction.
+                                std::cout << "Placing an obstruction at (" << target_obstacle.first << ", " << target_obstacle.second << ")." << std::endl;
+                            }
                         }
                         // Continue to the next guard.
                         continue;

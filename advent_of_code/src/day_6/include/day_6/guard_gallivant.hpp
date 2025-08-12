@@ -96,6 +96,15 @@ struct Guard {
      * element represents the horizontal direction (left/right).
      */
     std::pair<int, int> current_orientation_ = std::pair<int, int>{0, 0};
+    /**
+     * @brief The number of turns the guard has made.
+     *
+     * This integer keeps track of how many times the guard has changed its orientation
+     * while navigating through the grid. It can be used to analyze the guard's movement patterns.
+     */
+    int nb_turn_ = 0;
+    int nb_obstructions_ = 0;
+    std::vector<std::pair<int, int>> previous_obstacles_ = {};
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 };
 
