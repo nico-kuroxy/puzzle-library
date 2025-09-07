@@ -25,7 +25,7 @@ endif()
 # Let the compiler search for headers in the include folder.
 include_directories(include)
 # Define the library target.
-add_library(person_handling src/person_handler.cpp)
+add_library(person_handling src/person_handler.cpp src/plane.cpp)
 
 #############
 ## Install ##
